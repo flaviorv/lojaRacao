@@ -4,42 +4,34 @@ public class Cliente {
 	private String nome;
 	private String cpf;
 	private String telefone;
-	private String endereco;
+	
+	public Cliente (String nome, String cpf, String telefone) {
+		this.nome = nome;
+		this.cpf = cpf;
+		this.telefone = telefone;
+	}
 	
 	@Override
 	public String toString() {
-		return nome + " - " + telefone + " - " + endereco;
+		StringBuilder sb = new StringBuilder();
+		sb.append(nome);
+		sb.append(";");
+		sb.append(cpf);
+		sb.append(";");
+		sb.append(telefone);
+		
+		return sb.toString();
 	}
 
 	public String getNome() {
 		return nome;
 	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
+	
 	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
 	public String getTelefone() {
 		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-
-	public String getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
 	}
 }

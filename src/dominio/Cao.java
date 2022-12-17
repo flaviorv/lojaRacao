@@ -5,23 +5,40 @@ public class Cao extends Racao {
 	private boolean filhotes;
 	private String porte; //racas pequenas, porte médio, grande porte
 	
-	public Cao(String nome, int codigo, double preco, boolean semCorante, boolean filhote, String porte) {
-		super(nome, codigo, preco);
+	public boolean isSemCorante() {
+		return semCorante;
+	}
+	public void setSemCorante(boolean semCorante) {
 		this.semCorante = semCorante;
+	}
+	public boolean isFilhotes() {
+		return filhotes;
+	}
+	public void setFilhotes(boolean filhotes) {
+		this.filhotes = filhotes;
+	}
+	public String getPorte() {
+		return porte;
+	}
+	public void setPorte(String porte) {
 		this.porte = porte;
 	}
+	
+	public Cao(String nome, int codigo, float preco) {
+		super(nome, codigo, preco);
+	}
 	@Override
-	public double calcularPrecoFinal(double preco) {
+	public float calcularPrecoFinal(float preco) {
 		if(semCorante) {
 			preco+=10;
 		}
 		if(filhotes) {
 			preco+=20;
 		}
-		if(porte == "racasPequenas") {
+		if(porte == "Raças Pequenas") {
 			preco+=30;
 		}
-		if(porte == "grandePorte") {
+		if(porte == "Grande Porte") {
 			preco+=15;
 		}
 		return preco;
@@ -30,25 +47,22 @@ public class Cao extends Racao {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Ração: " + Cao.this.getNome());
+		sb.append("Ração: " + super.getNome());
 		if(filhotes) {
 			sb.append("/Filhotes");
 		}else {
 			sb.append("/Adultos");
 		}
-		if (porte == "racasPequenas") {
-			sb.append("/Raças Pequenas");
-		}else if(porte == "grandePorte") {
-			sb.append("/Grande Porte");
-		}
-		sb.append(" - Preço: " + calcularPrecoFinal(Cao.this.getPreco()));
+		sb.append("/" + porte);
+		sb.append(" - Preço: " + calcularPrecoFinal(super.getPreco()));
 		if(semCorante) {
 			sb.append(" - Corante: sem corante");
 		}else {
 			sb.append(" - Corante: artificial");
 		}
-		sb.append(" - Código: " + Cao.super.getCodigo());
+		sb.append(" - Código: " + super.getCodigo());
 		
 		return sb.toString();
 	}
+	
 }

@@ -4,20 +4,31 @@ public abstract class Racao {
 	
 	private String nome;
 	private int codigo;
-	private double preco;
+	private float preco;
 	
-	public Racao(String nome, int codigo, double preco) {
+	public Racao(String nome, int codigo, float preco) {
 		this.nome = nome;
 		this.codigo = codigo;
 		this.preco = preco;	
 		
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Nome: " + nome);
+		sb.append(";");
+		sb.append("Preço: " + calcularPrecoFinal(preco));
+		sb.append(";");
+		sb.append("Código: " + codigo);
+		return sb.toString();
 	}
 
 	public String getNome() {
 		return nome;
 	}
 
-	public double getPreco() {
+	public float getPreco() {
 		return preco;
 	}
 
@@ -25,6 +36,6 @@ public abstract class Racao {
 		return codigo;
 	}
 
-	public abstract double calcularPrecoFinal(double preco);
+	public abstract float calcularPrecoFinal(float preco);
 	
 }
