@@ -3,33 +3,28 @@ package dominio;
 public abstract class Racao {
 	
 	private String nome;
-	private int lote;
-	private int validade;
+	private int codigo;
+	private double preco;
 	
-	public abstract String definirPreco();
+	public Racao(String nome, int codigo, double preco) {
+		this.nome = nome;
+		this.codigo = codigo;
+		this.preco = preco;	
+		
+	}
 
 	public String getNome() {
 		return nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public double getPreco() {
+		return preco;
 	}
 
-	public int getLote() {
-		return lote;
+	public int getCodigo() {
+		return codigo;
 	}
 
-	public void setLote(int lote) {
-		this.lote = lote;
-	}
-
-	public int getValidade() {
-		return validade;
-	}
-
-	public void setValidade(int validade) {
-		this.validade = validade;
-	}
+	public abstract double calcularPrecoFinal(double preco);
 	
 }
