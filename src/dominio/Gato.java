@@ -1,5 +1,9 @@
 package dominio;
 
+import auxiliar.Constantes;
+import exceptions.AtribuicaoInconsistenteException;
+import exceptions.PalavraInvalidaException;
+
 public class Gato extends Racao {
 	private String sabor;
 	private boolean filhotes = false;
@@ -11,10 +15,14 @@ public class Gato extends Racao {
 	
 
 	public String getSabor() {
+		
 		return sabor;
 	}
 
-	public void setSabor(String sabor) {
+	public void setSabor(String sabor)  throws PalavraInvalidaException {
+		if(sabor != Constantes.SABOR1 && sabor != Constantes.SABOR2 && sabor != Constantes.SABOR3) {
+			throw new PalavraInvalidaException("Sabor deve ser: " + Constantes.SABOR1 + ", " + Constantes.SABOR2 + " ou " + Constantes.SABOR3);
+		}
 		this.sabor = sabor;
 	}
 
@@ -30,29 +38,35 @@ public class Gato extends Racao {
 		return castrado;
 	}
 
-	public void setCastrado(boolean castrado) {
+	public void setCastrado(boolean castrado) throws AtribuicaoInconsistenteException {
+		if(filhotes && castrado) {
+			throw new AtribuicaoInconsistenteException("Só há ração de castrados para adultos");
+		}
 		this.castrado = castrado;
 	}
 	
 	@Override
 	public float calcularPrecoFinal(float preco){
-		if(sabor == "peixe") {
+		if(sabor == Constantes.SABOR3) {
 			preco+=15;
-		}
-		if (sabor == "carne") {
+		}else if (sabor == Constantes.SABOR2) {
 			preco+=5;
 		}
-		if(castrado) {
-			preco+=8;
-		}
+		
 		if(filhotes) {
 			preco+=2.21;
 		}
 		
-		return preco;
+		if(castrado) {
+			preco+=8;
+		}
+		
+		
+		return  preco;
 	}
 	
-	public String imprimirRacao() {
+	@Override
+	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Ração: ");
 		sb.append(super.getNome());
@@ -67,7 +81,7 @@ public class Gato extends Racao {
 		sb.append(" - Sabor: ");
 		sb.append(sabor);
 		sb.append(" - Preço: ");
-		sb.append(super.getPreco());
+		sb.append(String.format("%.2f", calcularPrecoFinal(super.getPreco())));
 		sb.append(" - Código: ");
 		sb.append(super.getCodigo());
 		

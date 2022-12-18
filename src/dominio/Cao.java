@@ -1,9 +1,11 @@
 package dominio;
+import auxiliar.Constantes;
+import exceptions.PalavraInvalidaException;
 
 public class Cao extends Racao {
 	private boolean semCorante;
 	private boolean filhotes;
-	private String porte; //racas pequenas, porte médio, grande porte
+	private String porte; 
 	
 	public boolean isSemCorante() {
 		return semCorante;
@@ -20,7 +22,10 @@ public class Cao extends Racao {
 	public String getPorte() {
 		return porte;
 	}
-	public void setPorte(String porte) {
+	public void setPorte(String porte) throws PalavraInvalidaException{
+		if(porte != Constantes.PORTE1 && porte != Constantes.PORTE2 && porte != Constantes.PORTE3) {
+			throw new PalavraInvalidaException("Porte deve ser: " + Constantes.PORTE1 + ", " + Constantes.PORTE2 + " ou " + Constantes.PORTE3);
+		}
 		this.porte = porte;
 	}
 	
@@ -30,15 +35,15 @@ public class Cao extends Racao {
 	@Override
 	public float calcularPrecoFinal(float preco) {
 		if(semCorante) {
-			preco+=10;
+			preco+=10.32;
 		}
 		if(filhotes) {
 			preco+=20;
 		}
-		if(porte == "Raças Pequenas") {
+		if(porte == Constantes.PORTE1) {
 			preco+=30;
 		}
-		if(porte == "Grande Porte") {
+		if(porte == Constantes.PORTE2) {
 			preco+=15;
 		}
 		return preco;
@@ -54,7 +59,7 @@ public class Cao extends Racao {
 			sb.append("/Adultos");
 		}
 		sb.append("/" + porte);
-		sb.append(" - Preço: " + calcularPrecoFinal(super.getPreco()));
+		sb.append(String.format(" - Preço: %.2f", calcularPrecoFinal(super.getPreco())));
 		if(semCorante) {
 			sb.append(" - Corante: sem corante");
 		}else {

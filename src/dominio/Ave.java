@@ -1,7 +1,10 @@
 package dominio;
+import auxiliar.Constantes;
+import exceptions.NumeroBaixoException;
+import exceptions.PalavraInvalidaException;
 
 public class Ave extends Racao { 
-	private String tipo; //ex: canario, coleiro, trinca-ferro, periquito
+	private String tipo; 
 	private String aroma;
 	private float peso;
 	
@@ -9,7 +12,10 @@ public class Ave extends Racao {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(String tipo) throws PalavraInvalidaException {
+		if(tipo != Constantes.TIPO1 && tipo != Constantes.TIPO2 && tipo != Constantes.TIPO3) {
+			throw new PalavraInvalidaException("Tipo de Pássaro deve ser: " + Constantes.TIPO1 + ", " + Constantes.TIPO2 + " ou " + Constantes.TIPO3);
+		}
 		this.tipo = tipo;
 	}
 
@@ -17,7 +23,10 @@ public class Ave extends Racao {
 		return aroma;
 	}
 
-	public void setAroma(String aroma) {
+	public void setAroma(String aroma) throws PalavraInvalidaException {
+		if(aroma != Constantes.AROMA1 && aroma != Constantes.AROMA2 && aroma != Constantes.AROMA3) {
+			throw new PalavraInvalidaException("Aroma deve ser: " + Constantes.AROMA1 + ", " + Constantes.AROMA2 + " ou " + Constantes.AROMA3);
+		}
 		this.aroma = aroma;
 	}
 
@@ -25,7 +34,11 @@ public class Ave extends Racao {
 		return peso;
 	}
 
-	public void setPeso(float peso) {
+	public void setPeso(float peso) throws NumeroBaixoException {
+		if(peso <= 0) {
+			throw new NumeroBaixoException("Peso deve ser maior que zero");
+		}
+		
 		this.peso = peso;
 	}
 	
@@ -36,15 +49,15 @@ public class Ave extends Racao {
 
 	@Override
 	public float calcularPrecoFinal(float preco){
-		if(tipo == "Canário") {
+		if(tipo == Constantes.TIPO2) {
 			preco += 1;
-		}else if(tipo == "Trinca-Ferro") {
+		}else if(tipo == Constantes.TIPO3) {
 			preco += 54.4;
 		}
 		
-		if(aroma == "Mamão" ) {
+		if(aroma == Constantes.AROMA1 ) {
 			preco += 23.34;
-		}else if(aroma == "Banana") {
+		}else if(aroma == Constantes.AROMA2) {
 			preco += 43.34;
 		}
 		
@@ -59,7 +72,7 @@ public class Ave extends Racao {
 		sb.append(": " + super.getNome());
 		sb.append(" - Aroma de " + aroma);
 		sb.append(" - Peso: " + peso);
-		sb.append(" - Preço: " + calcularPrecoFinal(super.getPreco()));
+		sb.append(String.format(" - Preço: %.2f", calcularPrecoFinal(super.getPreco())));
 		sb.append(" - Código: " + super.getCodigo());
 		
 		return sb.toString();

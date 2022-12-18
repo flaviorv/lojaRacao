@@ -18,7 +18,7 @@ public abstract class Racao {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Nome: " + nome);
 		sb.append(";");
-		sb.append("Preço: " + calcularPrecoFinal(preco));
+		sb.append(String.format("Preço: %.2f", calcularPrecoFinal(preco)));
 		sb.append(";");
 		sb.append("Código: " + codigo);
 		return sb.toString();
