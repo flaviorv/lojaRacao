@@ -1,6 +1,6 @@
 package dominio;
 
-//import java.util.List;
+import java.util.List;
 
 public class Venda {
 	
@@ -8,21 +8,21 @@ public class Venda {
 	private boolean entrega = false;
 	private String endereco;
 	private Cliente cliente;
-	//private List<Racao> listaRacoes;
+	private List<Racao> listaRacoes;
 	
 	@Override
 	public String toString() {
 		String s1 = String.format("Data: %s",  data );
-		String s2 = String.format("; Clinte: %s", cliente.toString());
+		String s2 = String.format(";Clinte: %s", cliente.toString());
 		String s3;
 		if(entrega) {
 			s3 = String.format(";Entregar: %s", endereco);
 		}else {
 			s3 = String.format(";Produto retirado pelo cliente");
 		}
+		String s4 = String.format(";Quantidade de Rações: %d", listaRacoes.size());
 		
-		
-		return s1 + s2 + s3;
+		return s1 + s2 + s3 + s4;
 	}
 
 	public String getData() {
@@ -55,5 +55,13 @@ public class Venda {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public List<Racao> getListaRacoes() {
+		return listaRacoes;
+	}
+
+	public void setListaRacoes(List<Racao> listaRacoes) {
+		this.listaRacoes = listaRacoes;
 	}
 }
